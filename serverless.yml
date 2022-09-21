@@ -1,0 +1,55 @@
+service: zoluxiones
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: us-east-1
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: post
+  user:
+    handler: src/index.handler
+    events:
+      - httpApi:
+          path: /v1/docs
+          method: get
+
+      - httpApi:
+          path: /v1/user
+          method: post
+
+      - httpApi:
+          path: /v1/user/login
+          method: post
+
+      - httpApi:
+          path: /v1/user
+          method: get
+
+      - httpApi:
+          path: /v1/user
+          method: put
+
+      - httpApi:
+          path: /v1/user/logout
+          method: delete
+
+      - httpApi:
+          path: /v1/user/search
+          method: post
+      
+      - httpApi:
+          path: /v1/swapi/personajes
+          method: get
+      
+      - httpApi:
+          path: /v1/swapi/peliculas
+          method: get
+
+    

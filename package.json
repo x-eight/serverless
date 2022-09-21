@@ -1,0 +1,35 @@
+{
+    "name": "zoluxiones",
+    "version": "1.0.0",
+    "description": "serverless and express",
+    "main": "src/index.js",
+    "scripts": {
+        "dev": "node src/index.local",
+        "deploy": "serverless deploy --verbose --force",
+        "test": "NODE_OPTIONS=--experimental-vm-modules && jest --forceExit"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.27.2",
+        "bcrypt": "^5.0.1",
+        "body-parser": "^1.20.0",
+        "connect-redis": "^6.1.3",
+        "cookie-parser": "^1.4.6",
+        "express": "^4.18.1",
+        "express-session": "^1.17.3",
+        "mysql2": "^2.3.3",
+        "nanoid": "3.0.0",
+        "redis": "^4.3.1",
+        "sequelize": "^6.23.0",
+        "serverless-http": "^3.0.2",
+        "swagger-jsdoc": "^6.2.5",
+        "swagger-ui-express": "^4.5.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.2"
+    },
+    "devDependencies": {
+      "jest": "^29.0.3",
+      "supertest": "^6.2.4"
+    }
+}

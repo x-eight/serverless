@@ -1,0 +1,718 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server to Zoluxione",
+        "version": "1.0.0",
+        "title": "Zoluxione",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": "quispe.ochochoque@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "petstore.swagger.io",
+    "basePath": "/v1",
+    "tags": [
+        {
+            "name": "Usuario",
+            "description": "Crear usuarios para ver las endpoint de Star Wars"
+        },
+        {
+            "name": "Star Wars",
+            "description": "Informacion de las perliculas y personajes",
+            "externalDocs": {
+                "description": "mas info",
+                "url": "https://swapi.py4e.com/"
+            }
+        }
+    ],
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "paths": {
+        "/user": {
+            "post": {
+                "tags": [ "Usuario" ],
+                "summary": "Crear usuario",
+                "description": "",
+                "consumes": [ "application/json" ],
+                "produces": [ "application/json" ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "elemetos que necesitamos para crear un usuario",
+                        "required":true,
+                        "schema": {
+                            "$ref": "#/definitions/UserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "resultado exitoso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "usuario": {
+                                    "$ref": "#/definitions/UserResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "datos invalidaos",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "algo ocurrio"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [ "Usuario" ],
+                "summary": "Actualizar usuario",
+                "description": "actualizamos la informacion del usuario con el que iniciamos sesion",
+                "consumes": [ "application/json" ],
+                "produces": [ "application/json" ],
+                "parameters": [
+                    {
+                        "name": "web_session",
+                        "in": "cookie",
+                        "description": "validar si un usuario inicio sesion",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "elemetos que necesitamos para crear un usuario",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/UserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "resultado exitoso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "usuario": {
+                                    "$ref": "#/definitions/UserResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "datos invalidaos",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "algo ocurrio"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "sin autorización",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Unauthorized"
+                                },
+                                "code": {
+                                    "type": "string",
+                                    "example": "UNAUTHORIZED"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "example": "AUTHENTICATION_ERROR"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [ "Usuario" ],
+                "summary": "Obtener usuario",
+                "description": "recibimos la informacion del usuario con el que iniciamos sesion",
+                "produces": [ "application/json" ],
+                "parameters": [
+                    {
+                        "name": "web_session",
+                        "in": "cookie",
+                        "description": "validar si un usuario inicio sesion",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "resultado exitoso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "usuario": {
+                                    "$ref": "#/definitions/UserResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "datos invalidaos",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "algo ocurrio"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "sin autorización",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Unauthorized"
+                                },
+                                "code": {
+                                    "type": "string",
+                                    "example": "UNAUTHORIZED"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "example": "AUTHENTICATION_ERROR"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [ "Usuario" ],
+                "summary": "Cerrar Sesion",
+                "description": "",
+                "produces": [ "application/json" ],
+                "parameters": [
+                    {
+                        "name": "web_session",
+                        "in": "cookie",
+                        "description": "validar si un usuario inicio sesion",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "resultado exitoso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "sesion cerrada"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "datos invalidaos",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "algo ocurrio"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "sin autorización",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Unauthorized"
+                                },
+                                "code": {
+                                    "type": "string",
+                                    "example": "UNAUTHORIZED"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "example": "AUTHENTICATION_ERROR"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "get": {
+                "tags": [ "Usuario" ],
+                "summary": "Iniciar Sesion",
+                "description": "cuando iniciamos sesion se crea internamente las cookies",
+                "produces": [ "application/json" ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "elemetos que necesitamos para iniciar sesion",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "required":["correo","password"],
+                            "properties": {
+                                "correo": {
+                                    "type": "string",
+                                    "example": "joe.doe@test.co"
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "example": "Test@123"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "resultado exitoso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "usuario": {
+                                    "$ref": "#/definitions/UserResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "datos invalidaos",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "algo ocurrio"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/search": {
+            "get": {
+                "tags": [ "Usuario" ],
+                "summary": "Lista de usuarios",
+                "description": "",
+                "produces": [ "application/json" ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "elemetos que podemos usar para filtrar los usuarios",
+                        "schema": {
+                            "type": "object",
+                            "required":["correo","password"],
+                            "properties": {
+                                "pagina": {
+                                    "type": "integer"
+                                },
+                                "limite": {
+                                    "type": "integer"
+                                },
+                                "query":{
+                                    "type": "object",
+                                    "properties": {
+                                        "ids": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "correos": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "resultado exitoso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "usuarios": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/UserResponse"
+                                    }
+                                },
+                                "paginacion":{
+                                    "type": "object",
+                                    "properties": {
+                                        "total_items": {
+                                            "type": "integer"
+                                        },
+                                        "total_pages": {
+                                            "type": "integer"
+                                        },
+                                        "page": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "datos invalidaos",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "algo ocurrio"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        
+        "/swapi/personajes": {
+            "get": {
+                "tags": [ "Star Wars" ],
+                "summary": "Personajes",
+                "description": "Filtrar por nombre del personaje",
+                "produces": [ "application/json" ],
+                "parameters": [
+                    {
+                        "name": "web_session",
+                        "in": "cookie",
+                        "description": "validar si un usuario inicio sesion",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nombre",
+                        "in": "query",
+                        "description": "nombre del personaje",
+                        "type": "string"
+                    },
+                    {
+                        "name": "pagina",
+                        "in": "query",
+                        "description": "movernos de pagina",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "resultado exitoso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "resultados": {
+                                    "type":"object",
+                                    "properties":{
+                                        "personajes":{
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/PeronajesResponse"
+                                            }
+                                        },
+                                        "cantidad": {
+                                            "type": "integer",
+                                            "example":23
+                                        }
+                                    }           
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "datos invalidaos",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "algo ocurrio"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "sin autorización",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Unauthorized"
+                                },
+                                "code": {
+                                    "type": "string",
+                                    "example": "UNAUTHORIZED"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "example": "AUTHENTICATION_ERROR"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/swapi/peliculas": {
+            "get": {
+                "tags": [ "Star Wars" ],
+                "summary": "Peliculas",
+                "description": "Filtrar por titulo de la pelicula",
+                "produces": [ "application/json" ],
+                "parameters": [
+                    {
+                        "name": "web_session",
+                        "in": "cookie",
+                        "description": "validar si un usuario inicio sesion",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nombre",
+                        "in": "query",
+                        "description": "titulo de la pelicula",
+                        "type": "string"
+                    },
+                    {
+                        "name": "pagina",
+                        "in": "query",
+                        "description": "movernos de pagina",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "resultado exitoso",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "resultados": {
+                                    "type":"object",
+                                    "properties":{
+                                        "personajes":{
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/PeliculasResponse"
+                                            }
+                                        },
+                                        "cantidad": {
+                                            "type": "integer",
+                                            "example":23
+                                        }
+                                    }           
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "datos invalidaos",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "algo ocurrio"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "sin autorización",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Unauthorized"
+                                },
+                                "code": {
+                                    "type": "string",
+                                    "example": "UNAUTHORIZED"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "example": "AUTHENTICATION_ERROR"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "api_key": {
+            "type": "apiKey",
+            "name": "api_key",
+            "in": "header"
+        },
+        "petstore_auth": {
+            "type": "oauth2",
+            "authorizationUrl": "https://petstore.swagger.io/oauth/authorize",
+            "flow": "implicit",
+            "scopes": {
+                "read:pets": "read your pets",
+                "write:pets": "modify pets in your account"
+            }
+        }
+    },
+    "definitions": {
+        "Response400": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "PeliculasResponse": {
+            "type": "object",
+            "properties": {
+                "titulo": {
+                    "type": "string",
+                    "example": "A New Hope"
+                },
+                "episodio": {
+                    "type": "integer",
+                    "example":4
+                },
+                "director": {
+                    "type": "string",
+                    "example": "George Lucas"
+                },
+                "productor": {
+                    "type": "string",
+                    "example": "Gary Kurtz, Rick McCallum"
+                },
+                "lanzamiento": {
+                    "type": "string",
+                    "example": "1977-05-25"
+                }
+            }
+        },
+        "PeronajesResponse": {
+            "type": "object",
+            "properties": {
+                "nombre": {
+                    "type": "string",
+                    "example": "Luke Skywalker"
+                },
+                "altura": {
+                    "type": "string",
+                    "example": "172 cm"
+                },
+                "masa": {
+                    "type": "string",
+                    "example": "77 kg"
+                },
+                "color_de_pelo": {
+                    "type": "string",
+                    "example": "blond"
+                },
+                "color_de_piel": {
+                    "type": "string",
+                    "example": "fair"
+                },
+                "color_de_ojo": {
+                    "type": "string",
+                    "example": "blue"
+                },
+                "genero": {
+                    "type": "string",
+                    "example": "male"
+                }
+            }
+        },
+        "UserRequest": {
+            "type": "object",
+            "properties": {
+                "correo": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "nombre": {
+                    "type": "string"
+                },
+                "apellido": {
+                    "type": "string"
+                }
+            }
+        },
+        "UserResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "example": "user_123frf344"
+                },
+                "correo": {
+                    "type": "string",
+                    "example": "joe.doe@test.co"
+                },
+                "nombre": {
+                    "type": "string",
+                    "example": "Joe"
+                },
+                "apellido": {
+                    "type": "string",
+                    "example": "Doe"
+                },
+                "creado": {
+                    "type": "integer",
+                    "example": 1663622955
+                }
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    }
+}
