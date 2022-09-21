@@ -7,23 +7,23 @@ function UserController(repository) {
     
     const ObtenerUsuaio = async (req, res, next) => {
         try {
-        const user = await repository.get(req.session.zo_user_id)
-        if (!user) {
-            return res.status(404).send({mensaje:"usuario no existe"})
-        }
+            const user = await repository.get(req.session.zo_user_id)
+            if (!user) {
+                return res.status(404).send({ mensaje:"usuario no existe" })
+            }
 
-        const usuario = {
-            id:user.id,
-            correo:user.email,
-            nombre: user.firstName,
-            apellido: user.lastName,
-            creado: user.createdAt
-        }
+            const usuario = {
+                id:user.id,
+                correo:user.email,
+                nombre: user.firstName,
+                apellido: user.lastName,
+                creado: user.createdAt
+            }
 
-        return res.status(200).send({ usuario })
-    } catch (err) {
-        return res.status(400).send({mensaje:"algo ocurrio"})
-    }
+            return res.status(200).send({ usuario })
+        } catch (err) {
+            return res.status(400).send({ mensaje:"algo ocurrio" })
+        }
     }
 
     const CrearUsuario = async (req, res, next) => {
@@ -101,8 +101,8 @@ function UserController(repository) {
                 return res.status(400).send({mensaje:"contraseña incorrecta"})
             }
         
-            req.session.zo_user_id= user.id
-            console.log("user",user)
+            req.session.zo_user_id = user.id
+  
             const usuario = {
                 id:user.id,
                 correo:user.email,
@@ -114,23 +114,23 @@ function UserController(repository) {
             return res.status(200).send({ usuario })
         } catch (err) {
             console.log("err",err)
-            return res.status(400).send({mensaje:"algo ocurrio"})
+            return res.status(400).send({ mensaje:"algo ocurrio" })
         }
     }
  
     const CerrarSesion = async (req, res, next) => {
         try {
-        await req.session.destroy()
-        res.clearCookie(config.cookieName, {
-            expires: new Date(1),
-            path: "/",
-            secure: true,
-            sameSite: "none",
-        })
-        return res.status(200).send({mensaje:"sesion cerrada"})
-    } catch (err) {
-        return res.status(400).send({mensaje:"algo ocurrio"})
-    }
+            await req.session.destroy()
+            res.clearCookie(config.cookieName, {
+                expires: new Date(1),
+                path: "/",
+                secure: true,
+                sameSite: "none",
+            })
+            return res.status(200).send({mensaje:"sesion cerrada"})
+        } catch (err) {
+            return res.status(400).send({mensaje:"algo ocurrio"})
+        }
     }
 
     const ListaUsuarios = async (req, res, next) => {
@@ -168,10 +168,9 @@ function UserController(repository) {
             }
      
             return res.status(200).send({ usuarios: users, paginacion })
-    } catch (err) {
-        console.log("err",err)
-        return res.status(400).send({mensaje:"algo ocurrio"})
-    }
+        } catch (err) {
+            return res.status(400).send({ mensaje:"algo ocurrio" })
+        }
     };
 
     const JsonFile = async (req, res, next) => {

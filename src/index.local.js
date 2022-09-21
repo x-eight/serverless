@@ -1,5 +1,3 @@
-/*
-
 const port = 3000
 
 async function localRun() {
@@ -12,4 +10,3 @@ async function localRun() {
 }
 
 localRun()
-*/

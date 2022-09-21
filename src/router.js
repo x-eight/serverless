@@ -20,12 +20,12 @@ function api(database,swaApi) {
     router.route('/user/logout').delete(auth, usuario.CerrarSesion);
     router.route('/user/search').post(usuario.ListaUsuarios);
   
-    router.route('/swapi/personajes').get(pelicula.ObtenerPersonajes);
-    router.route('/swapi/peliculas').get(pelicula.ObtenerPeliculas);
+    router.route('/swapi/personajes').get(auth, pelicula.ObtenerPersonajes);
+    router.route('/swapi/peliculas').get(auth, pelicula.ObtenerPeliculas);
 
     const options = {
       swaggerDefinition:swaggerDocument,
-      apis: ['./routes/*.js'],
+      apis: ['.src/router/*.js'],
     };
     const swaggerSpec = swaggerJSDoc(options);
     router.use('/docs', swaggerUi.serve)
