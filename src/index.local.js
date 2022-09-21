@@ -1,3 +1,4 @@
+const { run } = require('./app.js');
 const port = 3000
 
 async function localRun() {
